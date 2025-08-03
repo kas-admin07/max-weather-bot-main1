@@ -1,0 +1,27 @@
+[build]
+  command = "pip install -r requirements.txt"
+  publish = "."
+
+[build.environment]
+  PYTHON_VERSION = "3.9"
+
+# Настройка для Python функций
+[functions]
+  directory = "netlify/functions"
+
+# Перенаправления для API endpoints
+[[redirects]]
+  from = "/webhook/max"
+  to = "/.netlify/functions/webhook"
+  status = 200
+
+[[redirects]]
+  from = "/health"
+  to = "/.netlify/functions/health"
+  status = 200
+
+# Обработка всех остальных запросов
+[[redirects]]
+  from = "/*"
+  to = "/.netlify/functions/app"
+  status = 200
